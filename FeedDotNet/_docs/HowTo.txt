@@ -1,0 +1,14 @@
+Export an OPML file (see example in the ClientApplication -> btnExport_Click()
+	1. Create some structure (tree) of your feeds. Use your own category class implementing the IOpmlCategory interface.
+	2. Add subcategories and feeds to this category.
+	3. [optional] Create OpmlExportSettings object to specify OPML settings.
+	4. Call on of the OpmlManager.Export() methods to save OPML file in the specified location.
+
+Create new Module
+	- In assembly FeedDotNet.Modules, create 2 Files implementing IModule and IModuleItem interfaces
+	- In IModule, set NS-Property to the correct right namespace (as defined in the <rss> header)
+	- Parse module and moduleItem nodes in the Parse(XmlReader) - method
+	- In the FeedDotNet.ModuleManager.initialize(), initialize your module with modules.Add(new FeedDotNet.Modules.[YOUR MODULE].Module())
+	
+Compile under .NET 2.0
+	For use under .NET 2.0, simply remove all 3.0-references and DataContract attributes in source code.

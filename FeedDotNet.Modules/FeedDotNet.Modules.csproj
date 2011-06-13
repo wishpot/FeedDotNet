@@ -1,0 +1,77 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4B557E05-4192-4792-8FE7-525DAFE4F9CE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FeedDotNet.Modules</RootNamespace>
+    <AssemblyName>FeedDotNet.Modules</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'IP, PRIVATE_BETA|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\IP, PRIVATE_BETA\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Content\Module.cs" />
+    <Compile Include="Content\ModuleItem.cs" />
+    <Compile Include="DublinCore\Module.cs" />
+    <Compile Include="DublinCore\ModuleItem.cs" />
+    <Compile Include="Geo\Module.cs" />
+    <Compile Include="Geo\ModuleItem.cs" />
+    <Compile Include="Itunes\Category.cs" />
+    <Compile Include="Itunes\Explicit.cs" />
+    <Compile Include="Itunes\Module.cs" />
+    <Compile Include="Itunes\ModuleItem.cs" />
+    <Compile Include="Itunes\Owner.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Syndication\Module.cs" />
+    <Compile Include="Syndication\ModuleItem.cs" />
+    <Compile Include="Syndication\UpdatePeriod.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FeedDotNet.Common\FeedDotNet.Common.csproj">
+      <Project>{740E6A36-087A-445E-8FE7-21C17A0B9B29}</Project>
+      <Name>FeedDotNet.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

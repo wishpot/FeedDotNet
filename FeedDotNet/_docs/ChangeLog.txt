@@ -1,0 +1,28 @@
+1.2.1.1
+	- FeedReaderSettings class updated. Now the use of custom http-headers possible. See WorkItem #7471
+	  http://www.codeplex.com/FeedDotNet/WorkItem/View.aspx?WorkItemId=7471
+
+1.2.1.0
+	* Geo Module [http://www.w3.org/2003/01/geo/]
+	+ Bugfixing in Explorer - now detects all feeds (I guess ;)) + handles relative uris
+	
+
+1.2.0.0
+	* Detect feeds on the web pages
+	* OPML export
+	* Some documentation
+	
+1.1.2.0
+	+ FeedItems for RSS 0.9 could not be read
+	* Some Atom fields support context type attribute like <Content type="xtml">. Now they are read
+	  as "ContentType" and "SummaryType" properties.
+
+1.1.1.0
+	* Content Module [http://purl.org/rss/1.0/modules/content/]
+	* Syndication Module [http://purl.org/rss/1.0/modules/syndication/]
+	+ Atom 0.3 didn't read "modified" and "created" dates properly
+	- Small bugfixes
+
+1.1.0.0
+	* Real RSS 1.0 support
+	* Dublin Core Module [http://purl.org/dc/elements/1.1/]
