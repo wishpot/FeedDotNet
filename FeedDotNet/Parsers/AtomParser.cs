@@ -302,6 +302,10 @@ namespace FeedDotNet
                             }
                             normalizeFeedItemLink(feedItem, link);
                             break;
+                        default:
+                            if (readModules && subReader.Prefix != String.Empty)
+                              readModuleItem(subReader, feedItem);
+                            break;
                     }
                 }
             }
@@ -320,6 +324,12 @@ namespace FeedDotNet
                 case "enclosure": break; // No Enclosure in feed itself. In feedItems only. (?)
                 case "self":
                     Feed.XmlUri = new FeedUri(link.href, link.title);
+                    break;
+                case "next":
+                    Feed.NextUri = new FeedUri(link.href, link.title);
+                    break;
+                case "prev":
+                    Feed.PrevUri = new FeedUri(link.href, link.title);
                     break;
                 case "":
                 case "alternate":

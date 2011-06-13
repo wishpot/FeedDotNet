@@ -45,6 +45,12 @@ namespace FeedDotNet.Common
         private FeedUri xmlUri;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private FeedUri nextUri;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private FeedUri prevUri;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private string description = String.Empty;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -223,6 +229,20 @@ namespace FeedDotNet.Common
         {
             get { return xmlUri; }
             set { xmlUri = value; }
+        }
+
+        [DataMember]
+        public FeedUri NextUri
+        {
+            get { return nextUri; }
+            set { nextUri = value; }
+        }
+
+        [DataMember]
+        public FeedUri PrevUri
+        {
+            get { return prevUri; }
+            set { prevUri = value; }
         }
 
         [DataMember]

@@ -33,6 +33,18 @@ namespace FeedDotNet
         private string httpUserAgentString = "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; MyIE2; .NET CLR 1.1.4322; .NET CLR 2.0.50727; WinFX RunTime 3.0.50727; .NET CLR 3.0.04506.30)";
         private string httpAcceptString = "text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
         private Dictionary<HttpRequestHeader, string> httpHeaders = new Dictionary<HttpRequestHeader, string>();
+        private int? httpTimeout = null;
+
+
+        /// <summary>
+        /// Allows you to override the timeout used when fetching from http... the default is 
+        /// the built-in default of the HttpWebRequest.Timeout object
+        /// </summary>
+        public int? HttpTimeout
+        {
+          get { return httpTimeout; }
+          set { httpTimeout = value; }
+        }
 
         /// <summary>
         /// Set to false, if no module information should be parsed. Default is True.

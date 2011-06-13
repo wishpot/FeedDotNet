@@ -40,22 +40,20 @@ namespace FeedDotNet
         {
         }
 
-        public static Feed Read(string uri)
-        {
-            return Read(uri, null);
-        }
-
-        public static Feed Read(string uri, FeedReaderSettings settings)
+        public static Feed Read(string uri, FeedReaderSettings settings=null)
         {
             Stream stream = null;
-            XmlReader xmlReader = null;
+            
 
             if (settings == null)
                 settings = new FeedReaderSettings();
 
             try
             {
-				HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(uri);
+				      HttpWebRequest req = (HttpWebRequest)HttpWebRequest.Create(uri);
+
+              if (settings.HttpTimeout.HasValue)
+                req.Timeout = settings.HttpTimeout.Value;
                 
                 // Some firewalls allow browser clients only. So let us be a browser ;)
                 if(!String.IsNullOrEmpty(settings.HttpUserAgentString))
@@ -72,15 +70,35 @@ namespace FeedDotNet
                 }
 
 
-				WebResponse resp = req.GetResponse();
+				      WebResponse resp = req.GetResponse();
 
-				stream = resp.GetResponseStream();
+				      stream = resp.GetResponseStream();
 
+              return Read(stream, uri, settings);
+            }
+          catch (WebException ex)
+            {
+                errors.Add(ex);
+            }
+
+            return null;
+        }
+
+      /// <summary>
+      /// If you have an open stream, uses it.  The uri is not used except for modifying the feed
+      /// </summary>
+      /// <param name="stream"></param>
+      /// <param name="uri"></param>
+      /// <param name="settings"></param>
+      /// <returns></returns>
+        public static Feed Read(Stream stream, String uri, FeedReaderSettings settings)
+        {
+          XmlReader xmlReader = null;
                 XmlReaderSettings xmlSettings = new XmlReaderSettings();
                 xmlSettings.ProhibitDtd = false;
                 xmlReader = XmlReader.Create(stream, xmlSettings);
                 Parser parser = null;
-
+          try{
                 Feed feed = initialize(xmlReader);
                 if (feed != null)
                 {
@@ -122,10 +140,7 @@ namespace FeedDotNet
 
                 return feed;
             }
-            catch (WebException ex)
-            {
-                errors.Add(ex);
-            }
+            
             catch (Exception ex)
             {
                 errors.Add(ex);
@@ -232,6 +247,14 @@ namespace FeedDotNet
                             break;
                         case "xml:base":
                             //feed._base = new Uri(xmlReader.Value);        // Relative URIs not supported yet
+                            break;
+                        default:
+                            IModule module = ModuleManager.Instance.GetModule(xmlReader.Value);
+                            if (module != null)
+                            {
+                              module.LocalName = xmlReader.LocalName;
+                              feed.Modules.Add(xmlReader.LocalName, module);
+                            }
                             break;
                     }
                 }

@@ -222,7 +222,7 @@ namespace FeedDotNet
             return image;
         }
 
-        private void readModuleItem(XmlReader subReader, FeedItem feedItem)
+        private new void readModuleItem(XmlReader subReader, FeedItem feedItem)
         {
             IModuleItem moduleItem = feedItem.GetModuleItem(subReader.Prefix);
             if (moduleItem != null)

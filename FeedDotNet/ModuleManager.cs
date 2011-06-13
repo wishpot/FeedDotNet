@@ -57,14 +57,18 @@ namespace FeedDotNet
             modules.Add(new FeedDotNet.Modules.Content.Module());
             modules.Add(new FeedDotNet.Modules.Syndication.Module());
             modules.Add(new FeedDotNet.Modules.Geo.Module());
+            
             // initialize others here
+            modules.Add(new FeedDotNet.Modules.GoogleBaseProduct.Module());
+            modules.Add(new FeedDotNet.Modules.GoogleBaseCustom.Module());
+            modules.Add( new FeedDotNet.Modules.GoogleShoppingProduct.Module() );
         }
 
         public IModule GetModule(string ns)
         {
             foreach (IModule module in modules)
             {
-                if (module.NS == ns)
+                if (module.NS.Equals(ns, StringComparison.InvariantCultureIgnoreCase))
                     return module;
             }
 

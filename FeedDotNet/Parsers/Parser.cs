@@ -67,5 +67,27 @@ namespace FeedDotNet
                 }
             }
         }
+
+        protected void readModuleItem(XmlReader subReader, FeedItem feedItem)
+        {
+          IModuleItem moduleItem = feedItem.GetModuleItem(subReader.Prefix);
+          if (moduleItem != null)
+          {
+            moduleItem.Parse(subReader.ReadSubtree());
+          }
+          else
+          {
+            IModule module = Feed.GetModule(subReader.Prefix);
+            if (module != null)
+            {
+              IModuleItem mi = module.CreateModuleItem();
+              if (mi != null)
+              {
+                mi.Parse(subReader.ReadSubtree());
+                feedItem.ModuleItems.Add(subReader.Prefix, mi);
+              }
+            }
+          }
+        }
     }
 }
