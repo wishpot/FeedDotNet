@@ -82,6 +82,8 @@ namespace FeedDotNet
             set { httpHeaders = value; }
         }
 
+        public CredentialCache FeedCredentials { get; set; }
+
         public FeedReaderSettings()
         {
         }

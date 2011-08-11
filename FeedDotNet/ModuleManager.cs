@@ -61,7 +61,8 @@ namespace FeedDotNet
             // initialize others here
             modules.Add(new FeedDotNet.Modules.GoogleBaseProduct.Module());
             modules.Add(new FeedDotNet.Modules.GoogleBaseCustom.Module());
-            modules.Add( new FeedDotNet.Modules.GoogleShoppingProduct.Module() );
+            modules.Add(new FeedDotNet.Modules.GoogleShoppingProduct.Module());
+            modules.Add(new FeedDotNet.Modules.Shopify.Module());
         }
 
         public IModule GetModule(string ns)

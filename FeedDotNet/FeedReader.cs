@@ -55,20 +55,22 @@ namespace FeedDotNet
               if (settings.HttpTimeout.HasValue)
                 req.Timeout = settings.HttpTimeout.Value;
                 
-                // Some firewalls allow browser clients only. So let us be a browser ;)
-                if(!String.IsNullOrEmpty(settings.HttpUserAgentString))
-                    req.UserAgent = settings.HttpUserAgentString;
+              // Some firewalls allow browser clients only. So let us be a browser ;)
+              if(!String.IsNullOrEmpty(settings.HttpUserAgentString))
+                  req.UserAgent = settings.HttpUserAgentString;
 
-                // Add Accept string
-                if (!String.IsNullOrEmpty(settings.HttpAcceptString))
-                    req.Accept = settings.HttpAcceptString;
+              // Add Accept string
+              if (!String.IsNullOrEmpty(settings.HttpAcceptString))
+                  req.Accept = settings.HttpAcceptString;
 
-                // Add custom headers
-                foreach (KeyValuePair<HttpRequestHeader, string> kvp in settings.HttpHeaders)
-                {
-                    req.Headers.Add(kvp.Key, kvp.Value);
-                }
+              // Add custom headers
+              foreach (KeyValuePair<HttpRequestHeader, string> kvp in settings.HttpHeaders)
+              {
+                  req.Headers.Add(kvp.Key, kvp.Value);
+              }
 
+              if (settings.FeedCredentials != null)
+                req.Credentials = settings.FeedCredentials;
 
 				      WebResponse resp = req.GetResponse();
 
