@@ -165,7 +165,8 @@ namespace FeedDotNet.Modules.GoogleContent
                             this.Id = subTree.ReadString();
                             break;
                         case "image_link":
-                        case "additional_image_link":
+                            // Ignoring for now, until https://groups.google.com/group/google-content-api-for-shopping/browse_thread/thread/f0c575ad709295c2 is resolved.
+                            // case "additional_image_link":
                             subTree.MoveToContent();
                             String imageLink = subTree.ReadString();
                             if( !String.IsNullOrEmpty( imageLink ) )
