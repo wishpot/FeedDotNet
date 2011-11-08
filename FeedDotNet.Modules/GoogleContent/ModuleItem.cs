@@ -181,7 +181,12 @@ namespace FeedDotNet.Modules.GoogleContent
                             subTree.MoveToContent();
                             ParseAttribute( subTree );
                             break;
-                        // TODO "target_country" - do we support products in multiple countries for a given vendor though?       
+                        // TODO "target_country" - do we support products in multiple countries for a given vendor though?
+                        // If this is a tag that we don't recognize, we should ignore the whole group.
+                        default:
+                            var elementReader = subTree.ReadSubtree();
+                            elementReader.Close();
+                            break;
                     }
                 }
             }
@@ -213,7 +218,7 @@ namespace FeedDotNet.Modules.GoogleContent
                         subTree.MoveToContent();
                         if( subTree.HasAttributes )
                         {
-                            this.currency = subTree.GetAttribute( "currency" );
+                            this.currency = subTree.GetAttribute( "unit" );
                         }
                         String strPrice = subTree.ReadString();
                         if( !String.IsNullOrEmpty( strPrice ) )
