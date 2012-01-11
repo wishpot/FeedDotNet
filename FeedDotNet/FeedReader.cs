@@ -259,6 +259,11 @@ namespace FeedDotNet
                 }
             }
 
+            if (feed == null)
+            {
+              errors.Add(new InvalidDataException("Unknown feed format."));
+            }
+
             return feed;
         }
 
