@@ -137,6 +137,7 @@ namespace FeedDotNet.Modules.GoogleBaseProduct
                       isbn = xmlReader.ReadString();
                       break;
                     case "id":
+                    case "ID":
                       xmlReader.MoveToContent();
                       id = xmlReader.ReadString();
                       break;
