@@ -55,7 +55,8 @@ namespace FeedDotNet.Modules.GoogleBaseProduct
 
         public void Parse(XmlReader xmlReader)
         {
-          throw new NotImplementedException();
+          //This is a no-op, and don't throw here due to ebay's feeds which have a:
+          //<g:RssExtGb xmlns:g="http://base.google.com/ns/1.0"></g:RssExtGb> in them.
         }
 
         #endregion
