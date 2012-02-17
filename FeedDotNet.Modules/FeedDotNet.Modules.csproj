@@ -75,6 +75,8 @@
   <ItemGroup>
     <Compile Include="Content\Module.cs" />
     <Compile Include="Content\ModuleItem.cs" />
+    <Compile Include="EbayBaseComponents\Module.cs" />
+    <Compile Include="EbayBaseComponents\ModuleItem.cs" />
     <Compile Include="GoogleContent\Module.cs" />
     <Compile Include="GoogleContent\ModuleItem.cs" />
     <Compile Include="Shopify\Module.cs" />

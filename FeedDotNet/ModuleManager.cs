@@ -64,6 +64,7 @@ namespace FeedDotNet
             modules.Add( new FeedDotNet.Modules.GoogleContent.Module() );
             modules.Add(new FeedDotNet.Modules.GoogleShoppingProduct.Module());
             modules.Add(new FeedDotNet.Modules.Shopify.Module());
+            modules.Add(new FeedDotNet.Modules.EBayBaseComponents.Module());
         }
 
         public IModule GetModule(string ns)
