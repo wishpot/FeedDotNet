@@ -199,7 +199,10 @@ namespace FeedDotNet
                                     // One feed had a hex character / & that couldnt be read with XmlReader.
                                     feedItem.Content = subReader.ReadString();
                                 }
-                                catch{}
+                                catch(Exception ex)
+                                {
+                                  System.Diagnostics.Debug.WriteLine("Error reading the description of a feed item.  Ignored usually: "+ex.Message);
+                                }
                                 break;
                             case "link":
                                 subReader.MoveToContent();
