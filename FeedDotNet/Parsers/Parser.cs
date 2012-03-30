@@ -50,6 +50,19 @@ namespace FeedDotNet
         {
         }
 
+        /// <summary>
+        /// This can be implemented by parsers so that, in the event of an xml error, we'll be able to provide
+        /// some more detailed information about which node the parser was on when it threw an exception.  For the
+        /// current Feeditem (see below) this is the name of the node/element the parser was last looking at.
+        /// </summary>
+        internal virtual string CurrentNodeBeingParsed { get { return null; } }
+
+        /// <summary>
+        /// This can be implemented by parsers so that in the event of an error, you can find out which feed item
+        /// was in the process of being parsed.
+        /// </summary>
+        internal virtual FeedItem CurrentFeedItemBeingParsed { get { return null; } }
+
         /// <summary>Correct some feeds</summary>
         protected void Complete()
         {

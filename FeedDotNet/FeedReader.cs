@@ -142,7 +142,17 @@ namespace FeedDotNet
             
             catch (Exception ex)
             {
-                errors.Add(ex);
+              errors.Add(ex);
+
+              string debugExceptionMsg = string.Empty;
+
+              if (null != parser && !String.IsNullOrEmpty(parser.CurrentNodeBeingParsed))
+                debugExceptionMsg += "Node being parsed was: " + parser.CurrentNodeBeingParsed+" ";
+              if (null != parser && null != parser.CurrentFeedItemBeingParsed)
+                debugExceptionMsg += "Most recent item: " + parser.CurrentFeedItemBeingParsed.ToString() + " ";
+              
+              if(!String.IsNullOrEmpty(debugExceptionMsg))
+                errors.Add(new Exception(debugExceptionMsg));
             }
             finally
             {

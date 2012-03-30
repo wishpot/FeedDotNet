@@ -177,27 +177,46 @@ namespace FeedDotNet
             Complete();
         }
 
+        private string m_CurrentNode = null;
+        internal override string CurrentNodeBeingParsed
+        {
+          get
+          {
+            return m_CurrentNode;
+          }
+        }
+
+        private FeedItem m_CurrentFeedItem = null;
+        internal override FeedItem CurrentFeedItemBeingParsed
+        {
+          get
+          {
+            return m_CurrentFeedItem;
+          }
+        }
+
         private void readItem(XmlReader subReader)
         {
             subReader.MoveToContent();
-            FeedItem feedItem = new FeedItem();
+            m_CurrentFeedItem = new FeedItem();
 
             while (subReader.Read())
             {
                 if (subReader.NodeType == XmlNodeType.Element)
-                    {
-                        switch (subReader.Name)
+                {
+                      m_CurrentNode = subReader.Name;
+                      switch (m_CurrentNode)
                         {
                             case "title":
                                 subReader.MoveToContent();
-                                feedItem.Title = subReader.ReadString();
+                                m_CurrentFeedItem.Title = subReader.ReadString();
                                 break;
                             case "description":
                                 subReader.MoveToContent();
                                 try
                                 {
                                     // One feed had a hex character / & that couldnt be read with XmlReader.
-                                    feedItem.Content = subReader.ReadString();
+                                  m_CurrentFeedItem.Content = subReader.ReadString();
                                 }
                                 catch(Exception ex)
                                 {
@@ -207,11 +226,11 @@ namespace FeedDotNet
                             case "link":
                                 subReader.MoveToContent();
                                 FeedUri uri = new FeedUri(subReader.ReadString());
-                                feedItem.WebUris.Add(uri);
+                                m_CurrentFeedItem.WebUris.Add(uri);
                                 break;
                             case "author":
                                 subReader.MoveToContent();
-                                feedItem.Authors.Add(readPerson(subReader.ReadString()));
+                                m_CurrentFeedItem.Authors.Add(readPerson(subReader.ReadString()));
                                 break;
                             case "category":
                                 Category category = new Category();
@@ -222,11 +241,11 @@ namespace FeedDotNet
                                 }
                                 subReader.MoveToContent();
                                 category.Label = category.Term = subReader.ReadString();
-                                feedItem.Categories.Add(category);
+                                m_CurrentFeedItem.Categories.Add(category);
                                 break;
                             case "comments":
                                 subReader.MoveToContent();
-                                feedItem.CommentsUri = subReader.ReadString();
+                                m_CurrentFeedItem.CommentsUri = subReader.ReadString();
                                 break;
                             case "enclosure":
                                 Enclosure enclosure = new Enclosure();
@@ -243,7 +262,7 @@ namespace FeedDotNet
                                         case "type": enclosure.Type = subReader.Value; break;
                                     }
                                 }
-                                feedItem.Enclosures.Add(enclosure);
+                                m_CurrentFeedItem.Enclosures.Add(enclosure);
                                 break;
                             case "guid":
                                 FeedGuid guid = new FeedGuid();
@@ -254,11 +273,11 @@ namespace FeedDotNet
                                 }
                                 subReader.MoveToContent();
                                 guid.Id = subReader.ReadString();
-                                feedItem.Guid = guid;
+                                m_CurrentFeedItem.Guid = guid;
                                 break;
                             case "pubDate":
                                 subReader.MoveToContent();
-                                feedItem.Published = DTHelper.ParseDateTime(subReader.ReadString());
+                                m_CurrentFeedItem.Published = DTHelper.ParseDateTime(subReader.ReadString());
                                 break;
                             case "source":
                                 Source source = new Source();
@@ -269,18 +288,18 @@ namespace FeedDotNet
                                 }
                                 subReader.MoveToContent();
                                 source.Title = subReader.ReadString();
-                                feedItem.Source = source;
+                                m_CurrentFeedItem.Source = source;
                                 break;
                             default:
                                 if (readModules && subReader.Prefix != String.Empty)
-                                    readModuleItem(subReader, feedItem);
+                                  readModuleItem(subReader, m_CurrentFeedItem);
                                 break;
                         }
 
                     }
             }
 
-            Feed.Items.Add(feedItem);
+            Feed.Items.Add(m_CurrentFeedItem);
         }
 
         private static Person readPerson(string str)

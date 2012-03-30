@@ -262,6 +262,12 @@ namespace FeedDotNet.Common
             if (title.Length > 0)
                 return title;
 
+            if (null != guid)
+              return guid.ToString();
+
+            if (!String.IsNullOrEmpty(summary))
+              return summary.Substring(0, 20);
+
             return base.ToString();
         }
     }
