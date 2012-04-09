@@ -142,6 +142,7 @@ namespace FeedDotNet.Modules.GoogleBaseProduct
                       id = xmlReader.ReadString();
                       break;
                     case "image_link":
+                    case "image_url": /* this isn't technicaly part of the spec, but we've seen people make this mistake */
                       xmlReader.MoveToContent();
                       // only read the image if we don't have one - consider the first image
                       // the primary one.
