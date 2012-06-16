@@ -300,6 +300,13 @@ namespace FeedDotNet
                                     case "type": link.type = subReader.Value; break;
                                 }
                             }
+                            //In case someone formats a link as <link>href</link>
+                            //we can tolerate that as well.
+                            if (String.IsNullOrEmpty(link.href))
+                            {
+                              subReader.MoveToContent();
+                              link.href = subReader.ReadString();
+                            }
                             normalizeFeedItemLink(feedItem, link);
                             break;
                         default:
